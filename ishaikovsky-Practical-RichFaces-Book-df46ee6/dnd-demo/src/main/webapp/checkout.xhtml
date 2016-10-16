@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	<rich:dataTable value="#{shoppingCartBean.cartItems}" var="item">
+		<f:facet name="header">Items for checkout</f:facet>
+		<rich:column>
+				#{item.title}
+			</rich:column>
+		<rich:column>
+				#{item.description}
+			</rich:column>
+	</rich:dataTable>
+</ui:composition>

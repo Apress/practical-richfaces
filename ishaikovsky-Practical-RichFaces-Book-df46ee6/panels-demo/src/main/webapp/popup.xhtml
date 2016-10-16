@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	<h3>Sample 1</h3>
+	<a href="#" onclick="#{rich:component('modalPanel')}.show()">Open</a>
+
+	<rich:popupPanel id="modalPanel">
+		<h:outputText value="Cool, I just opened a modal panel!" />
+		<a href="#" onclick="#{rich:component('modalPanel')}.hide()">Hide</a>
+	</rich:popupPanel>
+
+	<h3>Sample 2</h3>
+	<a href="#" onclick="#{rich:component('modalPanel2')}.show()">Open</a>
+
+	<rich:popupPanel id="modalPanel2">
+		<f:facet name="header">
+        Modal panel
+    </f:facet>
+		<h:outputText value="Cool, I just opened a modal panel!" />
+
+		<a href="#" onclick="#{rich:component('modalPanel2')}.hide()">Hide</a>
+	</rich:popupPanel>
+
+	<h3>Sample 3</h3>
+	<a href="#" onclick="#{rich:component('modalPanel3')}.show()">Open</a>
+
+	<rich:popupPanel id="modalPanel3">
+		<f:facet name="header">
+        Modal panel
+    </f:facet>
+		<f:facet name="controls">
+			<h:outputLink value="#"
+				style="font-size:large; color:black; text-decoration:none;"
+				onclick="#{rich:component('modalPanel3')}.hide(); return false;">
+            X
+            </h:outputLink>
+		</f:facet>
+		<h:outputText value="Cool, I just opened a modal panel!" />
+		<a href="#" onclick="#{rich:component('modalPanel3')}.hide()">Hide</a>
+	</rich:popupPanel>
+
+
+	<h3>Sample 4</h3>
+
+	<h:commandButton value="Open">
+		<rich:componentControl operation="show" target="modalPanel4" />
+	</h:commandButton>
+	<rich:popupPanel id="modalPanel4" modal="false">
+		<f:facet name="header">
+        Non-modal popup panel
+    </f:facet>
+		<f:facet name="controls">
+			<h:graphicImage value="/modalPanel/close.png" style="cursor:pointer"
+				onclick="Richfaces.hideModalPanel('modalPanel')" />
+		</f:facet>
+		<h:outputText value="Cool, I just opened non-modal popup panel!" />
+		<h:outputLink value="#">
+			<h:outputText value="Close" />
+			<rich:componentControl event="click" operation="hide"
+				target="modalPanel4" />
+		</h:outputLink>
+	</rich:popupPanel>
+
+	<h3>Sample 5</h3>
+
+	<h:commandButton value="Show popup">
+		<rich:componentControl target="modalPanel5" operation="show">
+			<a4j:param noEscape="true" value="event" />
+			<rich:hashParam>
+				<f:param name="minWidth" value="300px" />
+				<f:param name="minHeight" value="150px" />
+				<a4j:param noEscape="true" name="left"
+					value="(jQuery(window).width()/2)-250" />
+				<a4j:param noEscape="true" name="top"
+					value="(jQuery(window).height()/2)-150" />
+			</rich:hashParam>
+		</rich:componentControl>
+	</h:commandButton>
+	<rich:popupPanel id="modalPanel5" modal="false" resizeable="true"
+		header="Dynamic popup panel" moveable="true">
+		<f:facet name="controls">
+			<h:graphicImage value="/modalPanel/close.png" style="cursor:pointer"
+				onclick="Richfaces.hideModalPanel('modalPanel')" />
+		</f:facet>
+		<p>Cool, I just opened non-modal popup panel passing parameters
+		from script!</p>
+		<p>It could be resized and moved to any part of the screen"</p>
+		<a href="#" onclick="#{rich:component('modalPanel5')}.hide()">Hide</a>
+	</rich:popupPanel>
+
+	<h3>Sample 6</h3>
+
+	<h:form>
+		<a4j:commandLink value="Open"
+			onclick="#{rich:component('modalPanel6')}.show()" render="time" />
+	</h:form>
+	<rich:popupPanel id="modalPanel6" autosized="true" header="Time panel">
+		<h:panelGrid>
+			<h:outputText value="Cool, I just opened a modal panel!" />
+			<h:outputText id="time" value="Time: #{simplePopupBean.now}">
+				<f:convertDateTime />
+			</h:outputText>
+		</h:panelGrid>
+		<a href="#" onclick="#{rich:component('modalPanel6')}.hide()">Hide</a>
+	</rich:popupPanel>
+
+	<h3>Sample 7</h3>
+	<rich:popupPanel id="modalPanel7" autosized="true" header="Welcome!"
+		show="#{simplePopupBean.justRegistered}">
+		We hope you're getting much fun playing with RichFaces stuff!!
+		<a href="#" onclick="#{rich:component('modalPanel7')}.hide()">Hide</a>
+	</rich:popupPanel>
+
+	<h3>Sample 8</h3>
+	<rich:popupPanel id="modalPanel8" header="Edit User Information" width="350"
+		height="170">
+		<h:form>
+			<rich:tabPanel switchType="client">
+				<rich:tab header="personal">
+					<h:panelGrid columns="2">
+						<h:outputText value="Name:" />
+						<h:inputText value="#{userBean.name}" label="username" />
+						<h:outputText value="Age:" />
+						<h:inputText value="#{userBean.age}" label="age" />
+					</h:panelGrid>
+				</rich:tab>
+				<rich:tab header="Location">
+					<h:panelGrid columns="2">
+						<h:outputText value="City:" />
+						<h:inputText value="#{userBean.city}" id="city" />
+						<h:outputText value="Country:" />
+						<h:inputText value="#{userBean.country}" label="country" />
+					</h:panelGrid>
+				</rich:tab>
+			</rich:tabPanel>
+			<a4j:commandButton value="Close" id="close"
+				onclick="#{rich:component('modalPanel8')}.hide();return false;" />
+			<a4j:commandButton value="Save and Close" id="save" render="input"
+				oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('modalPanel8')}.hide();" />
+		</h:form>
+	</rich:popupPanel>
+	<a4j:outputPanel ajaxRendered="true">
+		<rich:popupPanel id="msgPanel" modal="true" zindex="101"
+			header="Correct your input!" autosized="true"
+			show="#{facesContext.maximumSeverity!=null}">
+			<h:messages ajaxRendered="true" style="color:red" />
+			<a href="#" onclick="#{rich:component('msgPanel')}.hide()">Hide</a>
+		</rich:popupPanel>
+	</a4j:outputPanel>
+	<h:form>
+		<h:panelGrid id="input">
+			<h:outputText value="Name: #{userBean.name}" />
+			<h:outputText value="Age: #{userBean.age}" />
+			<h:outputText value="City: #{userBean.city}" />
+			<h:outputText value="Country: #{userBean.country}" />
+			<a href="#" onclick="#{rich:component('modalPanel8')}.show()">Create/Edit
+			User wizard</a>
+		</h:panelGrid>
+	</h:form>
+
+	<h3>Sample 9</h3>
+	<h:form>
+		<rich:dataTable value="#{airlinesBean.airlines}" var="airline">
+			<f:facet name="header">Airlines</f:facet>
+			<rich:column>
+				<f:facet name="header">Name</f:facet>
+       		 #{airline.name}
+	      </rich:column>
+			<rich:column>
+				<f:facet name="header">Actions</f:facet>
+				<a4j:commandLink value="View"
+					oncomplete="#{rich:component('popupPanel9')}.show()"
+					render="airlineInfo">
+					<f:setPropertyActionListener value="#{airline}"
+						target="#{airlinesBean.selected}" />
+				</a4j:commandLink>
+			</rich:column>
+		</rich:dataTable>
+	</h:form>
+	<rich:popupPanel id="popupPanel9" width="250" height="100">
+		<f:facet name="header">
+      Airline Information
+	</f:facet>
+		<h:panelGrid id="airlineInfo" columns="2">
+			<h:outputText value="Name:" />
+			<h:outputText value="#{airlinesBean.selected.name}" />
+			<h:outputText value="Code" />
+			<h:outputText value="#{airlinesBean.selected.code}" />
+		</h:panelGrid>
+		<a href="#"
+			onclick="#{rich:component('popupPanel9')}.hide();return false;">Close</a>
+	</rich:popupPanel>
+
+	<h3>Sample 10</h3>
+	<h:form>
+		<a4j:commandButton actionListener="#{bean.calculate}"
+			value="Calculate" />
+	</h:form>
+	<rich:popupPanel id="mp" style="text-align:center">
+		<h:outputText value="Please wait..."
+			style="font-weight:bold;font-size:large" />
+	</rich:popupPanel>
+	<a4j:status id="actionStatus"
+		onstart="#{rich:component('mp')}.show('',{height:'80', width:'150'})"
+		onstop="#{rich:component('mp')}.hide()" />
+
+	<div style="height: 300px;"></div>
+	<ui:remove>
+		<hr />
+		<a4j:outputPanel id="updateToLoadPanel">
+			<rich:popupPanel rendered="#{controller.panelNeed}">
+				<ui:include src="#{controller.currentPanelURI}" />
+			</rich:popupPanel>
+		</a4j:outputPanel>
+
+
+		<h3>Sample 1</h3>
+		<h:commandButton value="Open simple modal without header"
+			onclick="#{rich:component('popup1')}.show();return false;" />
+
+		<h:commandButton value="Open with header resizeable abd moveable"
+			onclick="#{rich:component('popup2')}.show();return false;" />
+
+
+		<rich:popupPanel id="popup1">
+			<h:outputText
+				value="Text at simple RF panel without header. Text at simple RF panel without header. Text at simple RF panel without header. Text at simple RF panel without header. Text at simple RF panel without header. " />
+			<h:commandButton value="Close"
+				onclick="#{rich:component('popup1')}.hide(); return false;" />
+		</rich:popupPanel>
+
+		<rich:popupPanel id="popup2" resizeable="true">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:graphicImage value="/images/yellow_lamp.gif" />
+					<h:outputText value="Modal Panel Header" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:link value="X"
+					style="font-size:large; color:black; text-decoration:none;"
+					onclick="#{rich:component('popup2')}.hide(); return false;" />
+			</f:facet>
+			<h:outputText
+				value="Text at simple RF panel with header. Text at simple RF panel with header.Text at simple RF panel with header.Text at simple RF panel with header.Text at simple RF panel with header.Text at simple RF panel with header.Text at simple RF panel with header." />
+			<h:commandButton value="Close"
+				onclick="#{rich:component('popup2')}.hide(); return false;" />
+		</rich:popupPanel>
+
+		<h3>Sample 2</h3>
+
+		<rich:toolbar height="20">
+			<h:link value="Login!"
+				onclick="#{rich:component('popup3')}.show(); return false;" />
+		</rich:toolbar>
+		<rich:popupPanel id="popup3" top="265" left="15" modal="false"
+			header="Credentials" autosized="true">
+			<h:panelGrid columns="2">
+				<h:outputText value="Email:" />
+				<h:inputText />
+				<h:outputText value="Password:" />
+				<h:inputSecret />
+			</h:panelGrid>
+			<h:commandButton value="Login"
+				onclick="#{rich:component('popup3')}.hide(); return false;" />
+
+		</rich:popupPanel>
+	</ui:remove>
+</ui:composition>

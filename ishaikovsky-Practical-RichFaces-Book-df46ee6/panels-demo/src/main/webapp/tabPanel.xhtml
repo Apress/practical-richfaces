@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	<h3>Sample 1</h3>
+
+	<h:form>
+		<rich:panel style="width:500px">
+			<f:facet name="header">rich:tabPanel and rich:tab</f:facet>
+			<rich:tabPanel switchType="ajax" >
+				<rich:tab header="New York City">
+            Statue of Liberty
+        </rich:tab>
+				<rich:tab header="San Francisco">
+        Golden Gate Bridge
+    </rich:tab>
+				<rich:tab header="Los Angeles">
+        Hollywood
+    </rich:tab>
+			</rich:tabPanel>
+
+		</rich:panel>
+	</h:form>
+
+	<h3>Sample 2</h3>
+	<h:form>
+		<rich:panel style="width:500px">
+			<f:facet name="header">rich:tabPanel and rich:tab</f:facet>
+			<rich:tabPanel switchType="ajax">
+				<rich:tab>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:graphicImage value="/images/yellow_lamp.gif"></h:graphicImage>
+							<h:outputText value="New York City" />
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="Statue of Liberty" />
+				</rich:tab>
+				<rich:tab>
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:graphicImage value="/images/yellow_lamp.gif"></h:graphicImage>
+							<h:outputText value="San Francisco" />
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="Golden Gate Bridge" />
+				</rich:tab>
+				<rich:tab disabled="true">
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:graphicImage value="/images/yellow_lamp.gif"></h:graphicImage>
+							<h:outputText value="Los Angeles" />
+						</h:panelGrid>
+					</f:facet>
+					<h:outputText value="Hollywood" />
+				</rich:tab>
+			</rich:tabPanel>
+		</rich:panel>
+	</h:form>
+	<h3>Sample 3</h3>
+	<h:form>
+		<rich:panel style="width:500px">
+			<f:facet name="header">rich:tabPanel and rich:tab</f:facet>
+			<rich:tabPanel switchType="ajax" activeItem="sf">
+				<rich:tab header="New York City" name="nyc">
+		            Statue of Liberty
+		        </rich:tab>
+				<rich:tab header="San Francisco" name="sf">
+		            Golden Gate Bridge
+		        </rich:tab>
+				<rich:tab header="Los Angeles" name="la">
+		            Hollywood
+		        </rich:tab>
+			</rich:tabPanel>
+		</rich:panel>
+	</h:form>
+	<h3>Sample 4</h3>
+	<h:form>
+		<rich:panel style="width:500px">
+			<h:selectOneRadio value="#{cityTabBean.city}"
+				valueChangeListener="#{cityTabBean.changeCity}">
+				<f:selectItem itemLabel="New York" itemValue="nyc" />
+				<f:selectItem itemLabel="San Francisco" itemValue="sf" />
+				<f:selectItem itemLabel="Los Angeles" itemValue="la" />
+				<a4j:ajax event="change" render="cityTabs @this" />
+			</h:selectOneRadio>
+		</rich:panel>
+		<rich:panel style="width:500px" header="rich:tabPanel and rich:tab" id="cityTabs">
+			<rich:tabPanel switchType="ajax" 
+				activeItem="#{cityTabBean.selectedTab}">
+				<rich:tab header="New York City" name="nyc">
+                  Statue of Liberty
+              </rich:tab>
+				<rich:tab header="San Francisco" name="sf">
+                  Golden Gate Bridge
+              </rich:tab>
+				<rich:tab header="Los Angeles" name="la">
+                  Hollywood
+              </rich:tab>
+			</rich:tabPanel>
+		</rich:panel>
+	</h:form>
+	<h3>Sample 5</h3>
+	<style>
+		a{margin-right:10px;}
+	</style>
+	<rich:panel style="width:500px" header="rich:tabPanel and rich:tab">
+		<h:form>
+        <rich:panel>
+            <a4j:commandLink value="First"       
+                onclick="#{rich:component('tp')}.switchToItem('@first');return false;" />
+            <a4j:commandLink value="Previous"       
+                onclick="#{rich:component('tp')}.switchToItem('@prev');return false;" />
+            <a4j:commandLink value="New York City"
+                onclick="#{rich:component('tp')}.switchToItem('nyc');return false;" />
+            <a4j:commandLink value="San Francisco"
+                onclick="#{rich:component('tp')}.switchToItem('sf');return false;" />
+            <a4j:commandLink value="Los Angeles" 
+                onclick="#{rich:component('tp')}.switchToItem('la');return false;" />
+            <a4j:commandLink value="Next"       
+                onclick="#{rich:component('tp')}.switchToItem('@next');return false;" />
+            <a4j:commandLink value="Last"
+                onclick="#{rich:component('tp')}.switchToItem('@last');return false;" />
+        </rich:panel>
+			<rich:tabPanel switchType="ajax" id="tp">
+				<rich:tab header="New York City" name="nyc">
+                  Statue of Liberty
+              </rich:tab>
+				<rich:tab header="San Francisco" name="sf">
+                  Golden Gate Bridge
+              </rich:tab>
+				<rich:tab header="Los Angeles" name="la">
+                  Hollywood
+              </rich:tab>
+			</rich:tabPanel>
+		</h:form>
+	</rich:panel>
+</ui:composition>

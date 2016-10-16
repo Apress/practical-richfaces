@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+
+	<style>
+.top {
+	vertical-align: top;
+}
+</style>
+	<rich:panel header="RichFaces tree node">
+		<rich:tree value="#{richFacesTreeNodeBean.rootNode}" var="node"
+			toggleType="client">
+			<rich:treeNode>
+				#{node.data} 
+			</rich:treeNode>
+		</rich:tree>
+	</rich:panel>
+<br/>
+	<rich:panel header="rich:treeNode component nodes customized">
+		<rich:tree value="#{typifiedRichFacesTreeNodeBean.rootNode}"
+			var="node" nodeType="#{node.type}" toggleType="client"
+			selectionType="client">
+			<rich:treeNode type="NODE">
+				<h:outputText value="#{node.data}" />
+			</rich:treeNode>
+			<rich:treeNode type="LEAF">
+				<h:outputLink value="#">
+         #{node.data}
+      </h:outputLink>
+			</rich:treeNode>
+		</rich:tree>
+	</rich:panel>
+	<br/>
+	<rich:panel header="RichFaces tree node selection">
+		<h:panelGrid columns="2" columnClasses="top, top">
+			<h:form>
+				<rich:tree value="#{richFacesTreeNodeBean.rootNode}" var="node"
+					toggleType="client" selectionType="ajax"
+					selectionChangeListener="#{richFacesTreeNodeBean.selectionChanged}">
+					<rich:treeNode>
+				#{node.data} 
+			</rich:treeNode>
+				</rich:tree>
+			</h:form>
+			<a4j:outputPanel layout="block" ajaxRendered="true">
+				<rich:panel header="Current selection:"
+					rendered="#{not empty richFacesTreeNodeBean.selection}">
+					<a4j:repeat value="#{richFacesTreeNodeBean.selection}"
+						var="nodeData">
+			    #{nodeData}
+		    </a4j:repeat>
+				</rich:panel>
+			</a4j:outputPanel>
+
+		</h:panelGrid>
+	</rich:panel>
+	<br/>
+	<rich:panel header="RichFaces tree node toggling">
+		<h:panelGrid columns="2" columnClasses="top, top">
+			<h:form>
+				<rich:tree value="#{richFacesTreeNodeBean.rootNode}" var="node"
+					toggleType="ajax"
+					toggleListener="#{richFacesTreeNodeBean.nodeToggled}">
+					<rich:treeNode>
+				#{node.data} 
+			</rich:treeNode>
+				</rich:tree>
+			</h:form>
+			<a4j:outputPanel layout="block" ajaxRendered="true">
+				<h:outputText
+					value="#{richFacesTreeNodeBean.toggledNodeData} has the state changed!"
+					rendered="#{not empty richFacesTreeNodeBean.toggledNodeData}" />
+			</a4j:outputPanel>
+
+		</h:panelGrid>
+	</rich:panel>
+</ui:composition>

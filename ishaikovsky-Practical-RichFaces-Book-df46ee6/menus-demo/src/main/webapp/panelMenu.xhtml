@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+
+	<h3>sample 1</h3>
+	<h:form>
+		<rich:panel style="width:450px" header="Using rich:panelMenu">
+			<rich:panelMenu mode="ajax" topItemLeftIcon="disc"
+				itemLeftIcon="grid" topGroupExpandedLeftIcon="chevronDown"
+				groupExpandedLeftIcon="triangleDown" expandSingle="false">
+				<rich:panelMenuGroup label="Group 1">
+					<rich:panelMenuItem label="Item 1.1" />
+					<rich:panelMenuItem label="Item 1.2" />
+					<rich:panelMenuGroup label="Group 1.3">
+						<rich:panelMenuItem label="Item 1.3.1" />
+						<rich:panelMenuGroup label="Group 1.3.2">
+							<rich:panelMenuItem label="Item 1.3.2.1" />
+						</rich:panelMenuGroup>
+					</rich:panelMenuGroup>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Group 2">
+					<rich:panelMenuItem label="Item 2.1" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuItem label="Item 3" />
+			</rich:panelMenu>
+		</rich:panel>
+	</h:form>
+
+	<h3>sample 2</h3>
+	<h:form>
+		<rich:panel style="width:450px" header="Using rich:panelMenu">
+			<rich:panelMenu topItemLeftIcon="disc" itemLeftIcon="grid"
+				topGroupExpandedLeftIcon="chevronDown"
+				groupExpandedLeftIcon="triangleDown" expandSingle="false">
+				<rich:panelMenuGroup>
+					<f:facet name="label">
+						<h:outputText value="Group 1" />
+					</f:facet>
+					<rich:panelMenuItem>
+						<h:outputText value="Item 1.1" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem>
+						<h:outputText value="Item 1.2" />
+					</rich:panelMenuItem>
+					<rich:panelMenuGroup label="Group 1.3">
+						<rich:panelMenuItem label="Item 1.3.1" />
+						<rich:panelMenuGroup label="Group 1.3.2">
+							<rich:panelMenuItem label="Item 1.3.2.1" />
+						</rich:panelMenuGroup>
+					</rich:panelMenuGroup>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Group 2">
+					<rich:panelMenuItem label="Item 2.1" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuItem label="Item 3" />
+			</rich:panelMenu>
+		</rich:panel>
+	</h:form>
+	<h3>sample 3</h3>
+	<h:form>
+		<rich:panelMenu topGroupCollapsedLeftIcon="chevronUp" width="200px"
+			topGroupExpandedLeftIcon="chevronDown">
+			<rich:panelMenuGroup label="File">
+				<rich:panelMenuItem label="New" leftIcon="/images/icons/new.gif" />
+				<rich:panelMenuItem label="Open File..."
+					leftIcon="/images/icons/new.gif" />
+				<rich:panelMenuItem label="Save" leftIcon="/images/icons/save.gif" />
+				<rich:panelMenuItem label="Save All"
+					leftIcon="/images/icons/save_all.gif" />
+			</rich:panelMenuGroup>
+			<rich:panelMenuGroup label="Help">
+				<rich:panelMenuItem label="About"
+					leftIcon="/images/icons/yellow_lamp.gif" />
+			</rich:panelMenuGroup>
+		</rich:panelMenu>
+	</h:form>
+	<h3>sample 4</h3>
+	<h:form>
+		<h:panelGrid columns="2">
+			<rich:panelMenu topGroupCollapsedLeftIcon="chevronUp" width="200px"
+				topGroupExpandedLeftIcon="chevronDown">
+				<rich:panelMenuGroup selectable="true" mode="ajax" label="File"
+					render="menu" action="#{panelMenuBean.listenerFileGroup}">
+					<rich:panelMenuItem label="New" leftIcon="/images/icons/new.gif"
+						actionListener="#{panelMenuBean.listenerNew}" render="menu" />
+					<rich:panelMenuItem label="Open File..."
+						leftIcon="/images/icons/new.gif"
+						actionListener="#{panelMenuBean.listenerOpenFile}" render="menu" />
+					<rich:panelMenuItem label="Save" leftIcon="/images/icons/save.gif"
+						actionListener="#{panelMenuBean.listenerSave}" render="menu" />
+					<rich:panelMenuItem label="Save All"
+						leftIcon="/images/icons/save_all.gif"
+						actionListener="#{panelMenuBean.listenerSaveAll}" render="menu" />
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Help">
+					<rich:panelMenuItem label="About"
+						leftIcon="/images/icons/yellow_lamp.gif" mode="client"
+						onclick="#{rich:component('about')}.show()">
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+			</rich:panelMenu>
+			<h:panelGroup id="menu">
+				<h:outputText value="#{panelMenuBean.menuSelected}" />
+			</h:panelGroup>
+		</h:panelGrid>
+	</h:form>
+	<rich:popupPanel id="about" header="About">
+		<h:form>
+			<h:outputText
+				value="That popup opened from &lt;rich:panelMenuItem&gt; component. " />
+			<h:commandLink value="Hide"
+				onclick="#{rich:component('about')}.hide();return false;" />
+		</h:form>
+	</rich:popupPanel>
+</ui:composition>

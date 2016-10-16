@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	<h3>Sample 1</h3>
+	<h:form>
+		<rich:collapsiblePanel style="width:450px" switchType="ajax"
+			header="New York City">
+        New York City (officially The City of New York) is the most populous city in
+        the United States, with its metropolitan area ranking among the largest
+        urban areas in the world. It has been the largest city in the United States
+        since 1790, and was the country's first capital city and the site of George
+        Washington's inauguration as the first president of the United States.
+    </rich:collapsiblePanel>
+
+	</h:form>
+
+
+	<h3>Sample 2</h3>
+
+	<h:form>
+		<rich:collapsiblePanel rightCollapsedIcon="triangleUp"
+			leftCollapsedIcon="/images/yellow_lamp.gif"
+			leftExpandedIcon="/images/yellow_lamp.gif"
+			rightExpandedIcon="triangleDown" style="width:450px"
+			switchType="ajax" header="New York City">
+        New York City (officially The City of New York) is the most populous city in
+        the United States, with its metropolitan area ranking among the largest
+        urban areas in the world. It has been the largest city in the United States
+        since 1790, and was the country's first capital city and the site of George
+        Washington's inauguration as the first president of the United States.
+            </rich:collapsiblePanel>
+
+	</h:form>
+
+</ui:composition>

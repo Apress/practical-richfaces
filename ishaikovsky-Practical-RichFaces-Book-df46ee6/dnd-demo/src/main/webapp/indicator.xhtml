@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	<style>
+		.rf-ind-drag{
+			<!-- insert anything to customize default dragged look -->
+		}
+		.rf-ind-acpt{
+			border:3px solid green;
+		}
+		.rf-ind-rejt{
+			border:3px solid red;
+		}
+	</style>	<h:form>
+		<rich:dragIndicator id="indicator">
+			<rich:panel>
+				<h:outputText value="Drop product to cart" />
+			</rich:panel>
+		</rich:dragIndicator>
+		<h:panelGrid columns="2" id="panel" columnClasses="top,top">
+			<rich:panel header="Products" style="width:300px">
+				<rich:dropTarget acceptedTypes="targetProducts"
+					dropListener="#{shoppingCartBean.processRemove}" render="panel" />
+				<rich:dataGrid value="#{shoppingCartBean.items}" var="item">
+					<rich:panel style="width:275px">
+						<rich:dragSource type="products" dragValue="#{item}"
+							dragIndicator="indicator" />
+						<h:panelGrid columns="2">
+							<h:graphicImage value="#{item.iconURI}" />
+							<fieldset><legend><b>#{item.title}"</b></legend>#{item.description}</fieldset>
+						</h:panelGrid>
+					</rich:panel>
+				</rich:dataGrid>
+			</rich:panel>
+			<rich:panel header="Shopping Cart">
+				<h:panelGrid>
+					<h:outputText value="#{shoppingCartBean.productsCountString}"
+						rendered="#{not empty shoppingCartBean.cartItems}" />
+					<h:graphicImage
+						value="#{empty shoppingCartBean.cartItems?'/images/empty_cart.png':'/images/cart.png'}" />
+					<h:link outcome="checkout"
+						rendered="#{not empty shoppingCartBean.cartItems}">Checkout</h:link>
+					<rich:dataGrid value="#{shoppingCartBean.cartItems}" var="item">
+						<a4j:outputPanel layout="block">
+							<rich:dragSource type="targetProducts" dragValue="#{item}" />
+							<h:panelGrid columns="2">
+								<h:graphicImage value="#{item.iconURI}"
+									style="width:30px; height:30px;" />
+						#{item.title}
+						</h:panelGrid>
+						</a4j:outputPanel>
+					</rich:dataGrid>
+				</h:panelGrid>
+				<rich:dropTarget render="panel" acceptedTypes="products"
+					dropListener="#{shoppingCartBean.processDrop}" />
+			</rich:panel>
+		</h:panelGrid>
+	</h:form>
+</ui:composition>

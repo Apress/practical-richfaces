@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+
+	<h3>Simple Extended Data Table</h3>
+	<rich:panel style="width:940px" header="rich:extendedDataTable sample">
+		<rich:extendedDataTable value="#{olympicGamesBean.games}" var="game">
+			<f:facet name="header">Olympic Games List</f:facet>
+			<rich:column>
+				<f:facet name="header">Flag</f:facet>
+				<h:graphicImage value="#{game.flagURI}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">City</f:facet>
+				#{game.city}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Country</f:facet>
+				#{game.country}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Continent</f:facet>
+				#{game.continent}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Season</f:facet>
+				#{game.season}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Number</f:facet>
+				#{game.number}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Year</f:facet>
+				#{game.year}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">From</f:facet>
+				#{game.from}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">To</f:facet>
+				#{game.to}
+			</rich:column>
+		</rich:extendedDataTable>
+	</rich:panel>
+	<h3>Scrolling of the content in Extended Data Table</h3>
+	<fieldset><legend><b>NOTE</b></legend>
+	in order to get that working - remove all other tables from the page. 
+	see https://issues.jboss.org/browse/RF-10754.
+	</fieldset>
+	<h:form>
+	<rich:panel style="width:650px;"
+		header="rich:extendedDataTable sample">
+		<rich:extendedDataTable value="#{olympicGamesBean.games}"
+			 var="game" clientRows="20" frozenColumns="2"
+			style="height:200px; width:620px;">
+			<f:facet name="header">Olympic Games List</f:facet>
+			<rich:column>
+				<f:facet name="header">Flag</f:facet>
+				<h:graphicImage value="#{game.flagURI}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">City</f:facet>
+				#{game.city}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Country</f:facet>
+				#{game.country}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Continent</f:facet>
+				#{game.continent}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Season</f:facet>
+				#{game.season}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Number</f:facet>
+				#{game.number}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Year</f:facet>
+				#{game.year}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">From</f:facet>
+				#{game.from}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">To</f:facet>
+				#{game.to}
+			</rich:column>
+		</rich:extendedDataTable>
+	</rich:panel>
+	</h:form>
+	<h3>Selection Management</h3>
+	<style>
+.top {
+	vertical-align: top
+}
+</style>
+	<h:form>
+		<rich:panel style="width:600px" header="rich:extendedDataTable sample">
+			<h:panelGrid columns="2" columnClasses="top, top">
+				<rich:extendedDataTable value="#{olympicGamesBean.games}" var="game"
+					frozenColumns="2" selection="#{olympicGamesBean.selection}"
+					style="height:300px">
+					<f:facet name="header">Olympic Games List</f:facet>
+					<a4j:ajax event="selectionchange" render="detals"
+						listener="#{olympicGamesBean.showSelectionDetails}" />
+					<rich:column>
+						<f:facet name="header">Season</f:facet>
+#{game.season}
+</rich:column>
+					<rich:column>
+						<f:facet name="header">Number</f:facet>
+#{game.number}
+</rich:column>
+					<rich:column>
+						<f:facet name="header">Year</f:facet>
+#{game.year}
+</rich:column>
+				</rich:extendedDataTable>
+				<rich:dataTable value="#{olympicGamesBean.selectedGames}"
+					var="sgame" id="detals">
+					<f:facet name="header">Selected Games Details</f:facet>
+					<rich:column>
+						<f:facet name="header">Flag</f:facet>
+						<h:graphicImage value="#{sgame.flagURI}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">Country</f:facet>
+#{sgame.country}
+</rich:column>
+					<rich:column>
+						<f:facet name="header">City</f:facet>
+#{sgame.city}
+</rich:column>
+					<rich:column>
+						<f:facet name="header">From</f:facet>
+#{sgame.from}
+</rich:column>
+					<rich:column>
+						<f:facet name="header">To</f:facet>
+#{sgame.to}
+</rich:column>
+				</rich:dataTable>
+			</h:panelGrid>
+		</rich:panel>
+	</h:form>
+	<h3>Sample 2</h3>
+	<style>
+.odd {
+	background-color: #{
+	richSkin
+	.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	additionalBackgroundColor
+}
+
+;
+}
+.even {
+	background-color: #{
+	richSkin
+	.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	tableSubHeaderBackgroundColor
+}
+
+;
+}
+.cityColumn {
+	font-weight: bold;
+}
+</style>
+	<rich:panel style="width:650px" header="rich:extendedDataTable sample">
+		<rich:extendedDataTable value="#{olympicGamesBean.games}" var="game"
+			rowClasses="odd, even" columnClasses=",cityColumn"
+			onrowmouseover="this.style.fontWeight='bold'"
+			onrowmouseout="this.style.fontWeight='normal'">
+			<f:facet name="header">Olympic Games List</f:facet>
+			<rich:column>
+				<f:facet name="header">Flag</f:facet>
+				<h:graphicImage value="#{game.flagURI}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">City</f:facet>
+				#{game.city}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Country</f:facet>
+				#{game.country}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Continent</f:facet>
+				#{game.continent}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Season</f:facet>
+				#{game.season}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Number</f:facet>
+				#{game.number}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Year</f:facet>
+				#{game.year}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">From</f:facet>
+				#{game.from}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">To</f:facet>
+				#{game.to}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Note</f:facet>
+				<h:outputText value="#{game.status}" />
+			</rich:column>
+		</rich:extendedDataTable>
+	</rich:panel>
+	<h3>Sample 3</h3>
+	<style>
+.odd {
+	background-color: #{
+	richSkin
+	.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	additionalBackgroundColor
+}
+
+;
+}
+.even {
+	background-color: #{
+	richSkin
+	.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	tableSubHeaderBackgroundColor
+}
+
+;
+}
+.cityColumn {
+	font-weight: bold;
+}
+
+.red {
+	background-color: red;
+}
+</style>
+	<rich:panel style="width:650px" header="rich:extendedDataTable sample">
+		<rich:extendedDataTable value="#{olympicGamesBean.games}" var="game"
+			rowClasses="odd, even" columnClasses=",cityColumn"
+			onrowmouseover="this.style.fontWeight='bold'"
+			onrowmouseout="this.style.fontWeight='normal'"
+			rowClass="#{game.status == 'canceled' ? 'red' : ''}">
+			<f:facet name="header">Olympic Games List</f:facet>
+			<rich:column>
+				<f:facet name="header">Flag</f:facet>
+				<h:graphicImage value="#{game.flagURI}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">City</f:facet>
+				#{game.city}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Country</f:facet>
+				#{game.country}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Continent</f:facet>
+				#{game.continent}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Season</f:facet>
+				#{game.season}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Number</f:facet>
+				#{game.number}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Year</f:facet>
+				#{game.year}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">From</f:facet>
+				#{game.from}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">To</f:facet>
+				#{game.to}
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">Note</f:facet>
+				<h:outputText value="#{game.status}"
+					rendered="#{game.status=='canceled'}" />
+			</rich:column>
+		</rich:extendedDataTable>
+	</rich:panel>
+
+
+</ui:composition>
